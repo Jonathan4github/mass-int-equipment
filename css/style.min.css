@@ -8,3 +8,6 @@
 .heading-side-border{
   border-left:solid 5px #c33140; padding-left:10px;
 }
+.footer-text{
+  margin-left:5px; font-size:15px;
+}

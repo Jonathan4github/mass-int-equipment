@@ -1,2 +1,2 @@
-# MASS INTL EQUIPMENT
+# MASS INT'L EQUIPMENT
 Web UI that is suited for the websites of architectural firms, building companies, and freelance architects.

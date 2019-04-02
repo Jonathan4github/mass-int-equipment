@@ -11,3 +11,6 @@
 .footer-text{
   margin-left:5px; font-size:15px;
 }
+.product-heading{
+  border-left:solid 3px #c33140; padding: 6px;
+}

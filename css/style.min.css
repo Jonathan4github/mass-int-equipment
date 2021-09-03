@@ -1,17 +1,41 @@
-.carousel,.carousel .carousel-inner,.carousel .carousel-inner .active,.carousel .carousel-inner .carousel-item,.view,body,html{height:100%}.navbar{background-color:rgba(0,0,0,.2)}.page-footer,.top-nav-collapse{background-color:#1C2331}@media only screen and (max-width:768px){.navbar{background-color:#1C2331}}
-.active-page{
-  border-bottom:solid 2px red;
+.carousel,
+.carousel .carousel-inner,
+.carousel .carousel-inner .active,
+.carousel .carousel-inner .carousel-item,
+.view,
+body,
+html {
+  height: 100%;
+  scroll-behavior: smooth;
 }
-.maroon-text{
-  color:#c33140;
+.navbar {
+  background-color: rgba(0, 0, 0, 0.2);
 }
-.heading-side-border{
-  border-left:solid 5px #c33140; padding-left:10px;
+.page-footer,
+.top-nav-collapse {
+  background-color: #1c2331;
 }
-.footer-text{
-  margin-left:5px; font-size:15px;
+@media only screen and (max-width: 768px) {
+  .navbar {
+    background-color: #1c2331;
+  }
 }
-.product-heading{
-  border-left:solid 3px #c33140; padding: 6px;
+.active-page {
+  border-bottom: solid 2px red;
+}
+.maroon-text {
+  color: #c33140;
+}
+.heading-side-border {
+  border-left: solid 5px #c33140;
+  padding-left: 10px;
+}
+.footer-text {
+  margin-left: 5px;
+  font-size: 15px;
+}
+.product-heading {
+  border-left: solid 3px #c33140;
+  padding: 6px;
   background-color: rgb(241, 235, 235);
 }

@@ -695,6 +695,34 @@ img { max-width: 100%; }
 .masonry .g-item:hover .g-zoom { opacity: 1; transform: scale(1); }
 .masonry .g-item.is-hidden { display: none; }
 
+.gallery-pager {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center;
+  margin-top: 44px;
+}
+.gallery-pager:empty { display: none; }
+.gallery-pager button {
+  min-width: 42px; height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink-soft);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: .9rem;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all .28s var(--ease);
+}
+.gallery-pager button:hover:not(:disabled) { border-color: var(--maroon); color: var(--maroon); }
+.gallery-pager button.active {
+  background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(122,20,32,.28);
+}
+.gallery-pager button:disabled { opacity: .4; cursor: default; }
+.gallery-pager .gap { color: var(--slate); padding: 0 4px; }
+
 /* ---------- Contact ---------- */
 .contact-grid {
   display: grid;

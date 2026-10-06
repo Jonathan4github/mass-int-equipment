@@ -89,20 +89,83 @@
     counters.forEach(function (c) { cio.observe(c); });
   }
 
-  /* Gallery filter */
+  /* Gallery filter + pagination */
   var filterBtns = document.querySelectorAll('.gallery-filters button');
-  var items = document.querySelectorAll('.masonry .g-item');
-  if (filterBtns.length) {
+  var items = Array.prototype.slice.call(document.querySelectorAll('.masonry .g-item'));
+  var pager = document.querySelector('.gallery-pager');
+  var PER_PAGE = 12;
+  var filter = 'all', page = 1;
+
+  function matches() {
+    return items.filter(function (it) {
+      return filter === 'all' || it.getAttribute('data-cat') === filter;
+    });
+  }
+
+  /* Page numbers to show: first, last, current ±1, with gaps as null */
+  function pageList(total) {
+    var out = [];
+    for (var p = 1; p <= total; p++) {
+      if (p === 1 || p === total || Math.abs(p - page) <= 1) out.push(p);
+      else if (out[out.length - 1] !== null) out.push(null);
+    }
+    return out;
+  }
+
+  function pagerBtn(label, target, opts) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.innerHTML = label;
+    if (opts.aria) b.setAttribute('aria-label', opts.aria);
+    if (opts.current) { b.className = 'active'; b.setAttribute('aria-current', 'page'); }
+    if (opts.disabled) b.disabled = true;
+    else b.addEventListener('click', function () { showPage(target, true); });
+    return b;
+  }
+
+  function renderPager(total) {
+    if (!pager) return;
+    pager.innerHTML = '';
+    if (total <= 1) return;
+    pager.appendChild(pagerBtn('<i class="fas fa-chevron-left"></i>', page - 1,
+      { aria: 'Previous page', disabled: page === 1 }));
+    pageList(total).forEach(function (p) {
+      if (p === null) {
+        var gap = document.createElement('span');
+        gap.className = 'gap';
+        gap.textContent = '…';
+        pager.appendChild(gap);
+      } else {
+        pager.appendChild(pagerBtn(String(p), p, { aria: 'Page ' + p, current: p === page }));
+      }
+    });
+    pager.appendChild(pagerBtn('<i class="fas fa-chevron-right"></i>', page + 1,
+      { aria: 'Next page', disabled: page === total }));
+  }
+
+  function showPage(n, scroll) {
+    var list = matches();
+    var total = Math.max(1, Math.ceil(list.length / PER_PAGE));
+    page = Math.min(Math.max(1, n), total);
+    var start = (page - 1) * PER_PAGE, end = start + PER_PAGE;
+    items.forEach(function (it) { it.classList.add('is-hidden'); });
+    list.slice(start, end).forEach(function (it) { it.classList.remove('is-hidden'); });
+    renderPager(total);
+    if (scroll) {
+      var top = document.querySelector('.gallery-filters') || pager;
+      window.scrollTo({ top: top.getBoundingClientRect().top + window.scrollY - 110, behavior: 'smooth' });
+    }
+  }
+
+  if (items.length) {
     filterBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         filterBtns.forEach(function (b) { b.classList.remove('active'); });
         btn.classList.add('active');
-        var f = btn.getAttribute('data-filter');
-        items.forEach(function (it) {
-          var show = f === 'all' || it.getAttribute('data-cat') === f;
-          it.classList.toggle('is-hidden', !show);
-        });
+        filter = btn.getAttribute('data-filter');
+        showPage(1, false);
       });
     });
+    showPage(1, false);
   }
 })();
